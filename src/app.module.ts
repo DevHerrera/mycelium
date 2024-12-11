@@ -8,6 +8,8 @@ import { AuthModule } from './models/auth/auth.module';
 import { LinksModule } from './models/links/links.module';
 import { CognitoAuthModule } from '@nestjs-cognito/auth';
 import { ConfigService } from '@nestjs/config';
+import { S3Service } from './services/aws/s3.service';
+import { PagesModule } from './models/pages/pages.module';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { ConfigService } from '@nestjs/config';
     }),
     AuthModule,
     LinksModule,
+    PagesModule,
     TypeOrmModule.forRoot(dataSourceOptions),
     ConfigModule,
     CognitoAuthModule.registerAsync({
@@ -32,6 +35,6 @@ import { ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, S3Service],
 })
 export class AppModule {}
